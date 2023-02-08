@@ -1,0 +1,30 @@
+.additional-style{
+    background-color: #FEEAE9;
+    padding-left: 15px;
+}
+.card-size img{
+    height: 100px;
+}
+.panda-card{
+    border: 0;
+    height: 360px;
+}
+.panda-card-footer{
+    border: 0;
+    background-color: white;
+
+}
+.card-button{
+    background-color: #000000;
+    color: #FFFFFF;
+    width: 168px;
+    height: 52px;
+    font-size: 16px;
+}
+.pink-color{
+    background-color: #FF589B;
+}
+.touch-section{
+    background-color: #FFF2F1;
+    height: 355px;
+}
