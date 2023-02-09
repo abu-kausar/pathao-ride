@@ -16,7 +16,7 @@ import Button from 'react-bootstrap/Button';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import firebaseConfig from './firebase.config';
-import { getAuth, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { UserContext } from '../../App';
 
 initializeApp(firebaseConfig);
@@ -107,6 +107,7 @@ const Login = () => {
                         errorMessage: ''
                     }
                     setSignedInUser(newUser);
+                    updateUserProfile(signedInUser.name);
                     console.log(signedInUser)
                 })
                 .catch((error) => {
@@ -161,6 +162,16 @@ const Login = () => {
             console.log('Signed out successfully');
         }).catch((error) => {
             // An error happened.
+        });
+    }
+
+    const updateUserProfile = name => {
+        updateProfile(auth.currentUser, {
+            displayName: name,
+        }).then(() => {
+            console.log('name updated successfully')
+        }).catch((error) => {
+            console.log('updating profile failed');
         });
     }
 

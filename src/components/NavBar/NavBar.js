@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../../App';
 
 const NavBar = () => {
+    const [loggedInUser] = useContext(UserContext);
     return (
         <Navbar className='navCSS' collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
@@ -17,7 +19,11 @@ const NavBar = () => {
                         <Nav.Link as={Link} to="/destination">Destination</Nav.Link>
                         <Nav.Link as={Link} to="/blog">Blog</Nav.Link>
                         <Nav.Link as={Link} to="/contact">Contach</Nav.Link>
-                        <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                        {
+                            loggedInUser.isSignedIn ? <Nav.Link>{loggedInUser.email}</Nav.Link> :
+                             <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                        }
+                        
                         
                     </Nav>
                 </Navbar.Collapse>

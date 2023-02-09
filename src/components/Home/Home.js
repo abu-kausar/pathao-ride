@@ -13,7 +13,7 @@ const Home = () => {
                     </div>
                     <div className="card-footer panda-card-footer">
                         <Link to="/destination">
-                            <button className="btn card-button">Go</button>
+                            <button onClick={e => e.target.value} value="Bike" className="btn card-button">Go</button>
                         </Link>
 
                     </div>
