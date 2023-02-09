@@ -10,7 +10,7 @@ import {
 import Button from 'react-bootstrap/Button';
 
 const Destination = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+//     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [roadDirection, setRoadDirection] = useState({
         isDefinedDirection: false,
     })
