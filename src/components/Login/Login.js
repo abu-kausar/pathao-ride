@@ -16,7 +16,7 @@ import Button from 'react-bootstrap/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import firebaseConfig from './firebase.config';
-import { getAuth, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { UserContext } from '../../App';
 
 initializeApp(firebaseConfig);
@@ -44,7 +44,7 @@ const Login = () => {
         signInWithPopup(auth, googleProvider)
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
+//                 const credential = GoogleAuthProvider.credentialFromResult(result);
 //                 const token = credential.accessToken;
                 // The signed-in user info.
                 const user = result.user;
