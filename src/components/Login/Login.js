@@ -1,19 +1,19 @@
 import React, { useContext, useState } from 'react';
 import {
-    MDBBtn,
+//     MDBBtn,
     MDBContainer,
     MDBRow,
     MDBCol,
     MDBCard,
     MDBCardBody,
-    MDBInput,
-    MDBIcon,
-    MDBCheckbox
+//     MDBInput,
+//     MDBIcon,
+//     MDBCheckbox
 }
     from 'mdb-react-ui-kit';
 import './Login.css'
 import Button from 'react-bootstrap/Button';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import firebaseConfig from './firebase.config';
 import { getAuth, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -28,7 +28,7 @@ const Login = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const [setLoggedInUser] = useContext(UserContext);
 
     const [newUser, setNewUser] = useState(false);
     const [signedInUser, setSignedInUser] = useState({
@@ -45,7 +45,7 @@ const Login = () => {
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
+//                 const token = credential.accessToken;
                 // The signed-in user info.
                 const user = result.user;
                 const { displayName, email, photoURL } = user;
@@ -68,6 +68,7 @@ const Login = () => {
                 const email = error.customData.email;
                 // The AuthCredential type that was used.
                 const credential = GoogleAuthProvider.credentialFromError(error);
+                console.log(errorCode, errorMessage, email, credential);
                 // ...
             });
     }
@@ -108,7 +109,7 @@ const Login = () => {
                     }
                     setSignedInUser(newUser);
                     updateUserProfile(signedInUser.name);
-                    console.log(signedInUser)
+                    console.log(user, signedInUser)
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -116,6 +117,7 @@ const Login = () => {
                     const newUser = { ...signedInUser };
                     newUser.errorMessage = "Error 400 Email already in use";
                     setSignedInUser(newUser);
+                    console.log(errorCode, errorMessage);
                     // ..
                 });
         }
@@ -135,35 +137,35 @@ const Login = () => {
                     if(location.state?.from){
                         navigate(location.state.from)
                     }
-                    console.log('signed in successfully');
+                    console.log('signed in successfully', user);
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     const newInfo = {...signedInUser};
                     newInfo.errorMessage = errorMessage;
-                    setSignedInUser(newInfo);
+                    setSignedInUser(newInfo, errorCode);
                 });
         }
         event.preventDefault();
     }
 
-    const handleSignOut = () => {
-        const auth = getAuth();
-        signOut(auth).then(() => {
-            // Sign-out successful.
-            const signedIn = {
-                isSignedIn: false,
-                name: '',
-                email: '',
-                photo: ''
-            };
-            setSignedInUser(signedIn);
-            console.log('Signed out successfully');
-        }).catch((error) => {
-            // An error happened.
-        });
-    }
+//     const handleSignOut = () => {
+//         const auth = getAuth();
+//         signOut(auth).then(() => {
+//             // Sign-out successful.
+//             const signedIn = {
+//                 isSignedIn: false,
+//                 name: '',
+//                 email: '',
+//                 photo: ''
+//             };
+//             setSignedInUser(signedIn);
+//             console.log('Signed out successfully');
+//         }).catch((error) => {
+//             // An error happened.
+//         });
+//     }
 
     const updateUserProfile = name => {
         updateProfile(auth.currentUser, {
